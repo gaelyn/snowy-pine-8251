@@ -7,7 +7,6 @@ RSpec.describe 'Airlines Show Page' do
     @flight_1 = @airline.flights.create!(number: "1234", date: "4/23/21", departure_city: "Denver", arrival_city: "Reno")
     @flight_2 = @airline.flights.create!(number: "5678", date: "4/27/21", departure_city: "Nashville", arrival_city: "Los Angeles")
     @flight_3 = @airline.flights.create!(number: "910", date: "4/24/21", departure_city: "Atlanta", arrival_city: "Dallas")
-    # @flight_4 = @airline.flights.create!(number: "1112", date: "5/24/21", departure_city: "Huntville", arrival_city: "Houston")
 
     @passenger_1 = Passenger.create!(name: "Andrew", age: 18)
     @passenger_2 = Passenger.create!(name: "Joe", age: 7)
@@ -61,12 +60,3 @@ RSpec.describe 'Airlines Show Page' do
   #   expect(@passenger_3.name).to appear_before(@passenger_4)
   # end
 end
-
-# Extension, Frequent Flyers
-#
-# As a visitor
-# When I visit an airline's show page,
-# Then I see that the list of adult passengers is sorted
-# by the number of flights each passenger has taken on the airline from most to least
-#
-# (Note: you should only make 1 database query to retrieve the sorted list of passengers)
