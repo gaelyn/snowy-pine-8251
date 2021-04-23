@@ -63,13 +63,29 @@ RSpec.describe 'Flights Index Page' do
         expect(page).to have_content(@passenger_6.name)
       end
     end
+
+    it 'can see a link or button to remove that passenger from that flight' do
+      within("#passenger-#{@passenger_1.id}") do
+        expect(page).to have_button('Remove Passenger')
+      end
+
+      within("#passenger-#{@passenger_2.id}") do
+        expect(page).to have_button('Remove Passenger')
+      end
+
+      within("#passenger-#{@passenger_3.id}") do
+        expect(page).to have_button('Remove Passenger')
+      end
+    end
+
+    it 'can remove passenger from flight' do
+      within("#passenger-#{@passenger_1.id}") do
+        expect(page).to have_content(@passenger_1.name)
+        click_button('Remove Passenger')
+      end
+
+      expect(current_path).to eq("/flights")
+      expect(page).not_to have_content(@passenger_1.name)
+    end
   end
 end
-
-# User Story 1, Flights Index Page
-#
-# As a visitor
-# When I visit the flights index page
-# I see a list of all flight numbers
-# And next to each flight number I see the name of the Airline of that flight
-# And under each flight number I see the names of all that flight's passengers
