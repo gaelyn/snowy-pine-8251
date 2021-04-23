@@ -1,8 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Airline, type: :model do
-  it {should have_many :flights}
-  it { should have_many(:passengers).through(:flights) }
+RSpec.describe 'Airlines Show Page' do
   before :each do
     @airline = Airline.create!(name: "Frontier")
 
@@ -27,15 +25,19 @@ RSpec.describe Airline, type: :model do
     Ticket.create!(flight: @flight_3, passenger: @passenger_5)
     Ticket.create!(flight: @flight_3, passenger: @passenger_6)
     Ticket.create!(flight: @flight_3, passenger: @passenger_1)
+
+    visit "/airlines/#{@airline.id}"
   end
 
-  describe 'instance methods' do
-    describe '.adult_passengers' do
-      it 'can list only adult passengers 18 or over with no duplicates' do
-        expect(@airline.adult_passengers).to eq([@passenger_1, @passenger_3, @passenger_4, @passenger_5])
-        expect(@airline.adult_passengers).not_to include(@passenger_2)
-        expect(@airline.adult_passengers).not_to include(@passenger_6)
-      end
+  describe 'I visit an airlines show page' do
+    it 'can see list of unique passengers 18 years old or over with flights on this airline' do
+      expect(page).to have_content(@passenger_1.name, count: 1)
+      expect(page).to have_content(@passenger_3.name, count: 1)
+      expect(page).to have_content(@passenger_4.name, count: 1)
+      expect(page).to have_content(@passenger_5.name, count: 1)
+
+      expect(page).not_to have_content(@passenger_2.name)
+      expect(page).not_to have_content(@passenger_6.name)
     end
   end
 end
